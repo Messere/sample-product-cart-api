@@ -1,0 +1,126 @@
+swagger: "2.0"
+info:
+  description: "Sample Product microservice"
+  version: "0.1.0"
+  title: "Product"
+schemes:
+- "http"
+host: "fill.example.host.here"
+paths:
+  /v1/product:
+    post:
+      summary: "Add a new product"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Product to add to store"
+        required: true
+        schema:
+          $ref: "#/definitions/ProductInput"
+      responses:
+        204:
+          description: "Product created"
+        405:
+          description: "Invalid input"
+    get:
+      summary: "Get paginated list of products"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "List of products"
+          schema:
+            $ref: "#/definitions/ProductList"
+  /v1/product/{id}:
+    delete:
+      summary: "Remove product"
+      parameters:
+      - in: "path"
+        name: "id"
+        type: "string"
+        required: true
+      responses:
+        204:
+          description: "Product was deleted"
+    patch:
+      summary: "Update product properties"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        type: "string"
+        format: "uuid"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "Product to add to store"
+        required: true
+        schema:
+          $ref: "#/definitions/ProductInput"
+      responses:
+        204:
+          description: "Product was updated"
+        404:
+          description: "Product not found"
+
+definitions:
+  Link:
+    type: "object"
+    properties:
+      href:
+        description: "related url"
+        type: "string"
+  Price:
+    type: "object"
+    description: |
+      models product price as "amount/divisor in currency",
+      e.g. 1286/100 PLN = 12,86 PLN
+    properties:
+      amout:
+        type: "integer"
+      divisor:
+        type: "integer"
+      currency:
+        type: "string"
+        enum:
+          - PLN
+  ProductInput:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      price:
+        type: "integer"
+      currency:
+        $ref: "#/definitions/Price"
+  Product:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+      price:
+        $ref: "#/definitions/Price"
+  ProductListLinks:
+    type: "object"
+    properties:
+      self:
+        $ref: "#/definitions/Link"
+      next:
+        $ref: "#/definitions/Link"
+      previous:
+        $ref: "#/definitions/Link"
+  ProductList:
+    type: "object"
+    properties:
+      products:
+        type: "array"
+        items:
+          $ref: "#/definitions/Product"
+      _links:
+        $ref: "#/definitions/ProductListLinks"

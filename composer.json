@@ -1,0 +1,14 @@
+{
+    "name": "messere/sample-product-cart-api",
+    "description": "Sample application \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dproduct / cart application",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dariusz Sieradzki",
+            "email": "opensource@aerolit.pl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

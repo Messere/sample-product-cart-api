@@ -1,0 +1,123 @@
+swagger: "2.0"
+info:
+  description: "Sample Cart microservice"
+  version: "0.1.0"
+  title: "Cart"
+schemes:
+- "http"
+host: "fill.example.host.here"
+paths:
+  /v1/cart:
+    post:
+      summary: "Create new cart"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Cart created"
+          schema:
+            $ref: "#/definitions/CartId"
+  /v1/cart/{cartId}:
+    get:
+      summary: "Get contents of cart"
+      parameters:
+      - in: "path"
+        name: "cartId"
+        type: "string"
+        format: "uuid"
+        required: true
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Cart contents"
+          schema:
+            $ref: "#/definitions/Cart"
+        404:
+          description: "Cart not found"
+  /v1/cart/{cartId}/product:
+    post:
+      summary: "Insert product into cart"
+      parameters:
+      - in: "path"
+        name: "cartId"
+        type: "string"
+        format: "uuid"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "Product to add to cart"
+        required: true
+        schema:
+          $ref: "#/definitions/CartProductInput"
+      responses:
+        204:
+          description: "Product successfully added to cart"
+        403:
+          description: "Cart capacity exceeded"
+        404:
+          description: "Cart not found"
+  /v1/cart/{cartId}/product/{productId}:
+    delete:
+      summary: "Remove product from cart"
+      parameters:
+      - in: "path"
+        name: "cartId"
+        type: "string"
+        format: "uuid"
+        required: true
+      - in: "path"
+        name: "productId"
+        type: "string"
+        format: "uuid"
+        required: true
+      responses:
+        204:
+          description: "Product is gone from cart"
+        404:
+          description: "Cart not found"
+
+definitions:
+  Price:
+    type: "object"
+    description: |
+      models product price as "amount/divisor in currency",
+      e.g. 1286/100 PLN = 12,86 PLN
+    properties:
+      amout:
+        type: "integer"
+      divisor:
+        type: "integer"
+      currency:
+        type: "string"
+        enum:
+          - PLN
+  CartId:
+    type: "string"
+    format: "uuid"
+  CartProduct:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      amount:
+        type: "integer"
+      unitPrice:
+        $ref: "#/definitions/Price"
+  Cart:
+    type: "object"
+    properties:
+      totalPrice:
+        $ref: "#/definitions/Price"
+      products:
+        type: "array"
+        items:
+          $ref: "#/definitions/CartProduct"
+  CartProductInput:
+    type: "object"
+    properties:
+      productId:
+        type: "string"
+        format: "uuid"
+      amount:
+        type: "integer"
