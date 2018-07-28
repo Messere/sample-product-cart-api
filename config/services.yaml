@@ -28,3 +28,10 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    Messere\Cart\Product\AddProductHandler:
+        public: true
+        class: Messere\Cart\Product\AddProductHandler
+        tags:
+        - { name: command_handler, handles: Messere\Cart\Product\AddProductCommand }
+

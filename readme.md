@@ -24,12 +24,12 @@ allows to manipulate product and persist it in database. Cart microservice provi
 REST endpoints for manipulating cart and products in cart and persist it in
 cart database, separate from product database to allow independent scalability of
 both microservices. For the same reason cart database contains copy of relevant
-product data (for the sake of availability consitency is exchanged for eventual
+product data (for the sake of availability consistency is exchanged for eventual
 consistency).
 
 Data synchronization between two services is conducted via event bus. Modifications
 in product database send appropriate events to event bus to which cart microservice
-subscribes. In real case scenarion event bus would be realized using e.g. RMQ in
+subscribes. In real case scenario event bus would be realized using e.g. RMQ in
 this case, again, event bus is modelled directly in PHP. Still the only information
 sent via event bus is unique product identifier, the rest of information must
 be fetched from product microservice directly. Again, in real world scenario product
@@ -39,7 +39,7 @@ to reuse product repository.
 
 ![diagram](cart.png)
 
-## REST Endpoins definitions
+## REST Endpoints Definitions
 
 See [product-swagger](product-swagger.yaml) and [cart-swagger](cart-swagger.yaml).
 You can copy-paste contents into [editor.swagger.io](https://editor.swagger.io/)

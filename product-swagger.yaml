@@ -22,7 +22,7 @@ paths:
       responses:
         204:
           description: "Product created"
-        405:
+        400:
           description: "Invalid input"
     get:
       summary: "Get paginated list of products"
@@ -79,7 +79,7 @@ definitions:
       models product price as "amount/divisor in currency",
       e.g. 1286/100 PLN = 12,86 PLN
     properties:
-      amout:
+      amount:
         type: "integer"
       divisor:
         type: "integer"
@@ -92,8 +92,6 @@ definitions:
     properties:
       name:
         type: "string"
-      price:
-        type: "integer"
       currency:
         $ref: "#/definitions/Price"
   Product:
