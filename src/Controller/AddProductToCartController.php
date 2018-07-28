@@ -44,7 +44,6 @@ class AddProductToCartController
         } catch (CartException $e) {
             throw new BadRequestHttpException(
                 'Cannot add product to cart: ' . $e->getMessage(),
-                0,
                 $e
             );
         }

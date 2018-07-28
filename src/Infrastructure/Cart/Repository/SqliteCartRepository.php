@@ -35,7 +35,7 @@ class SqliteCartRepository implements ICartRepository
     public function getTotalAmount(UuidInterface $cartId): int
     {
         $statement = $this->pdo->prepare(
-            'select sum(amount) from cart where cart_id = :cartId'
+            'select sum(amount) as amount from cart where cart_id = :cartId'
         );
 
         $statement->execute([
@@ -44,7 +44,7 @@ class SqliteCartRepository implements ICartRepository
 
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        return $result ? $result['amount'] : 0;
+        return $result && $result['amount'] ? $result['amount'] : 0;
     }
 
     public function increaseProductCountInCart(UuidInterface $cartId, UuidInterface $productId): void
@@ -83,6 +83,7 @@ class SqliteCartRepository implements ICartRepository
         $statement = $this->pdo->prepare(
             'update cart set amount = amount '
             . ($amountChange > 0 ? '+ ' . $amountChange : $amountChange)
+            . ' where cart_id = :cartId and cartProduct_id = :cartProductId'
         );
 
         $statement->execute([
