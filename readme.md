@@ -44,3 +44,15 @@ to reuse product repository.
 See [product-swagger](doc/product-swagger.yaml) and [cart-swagger](doc/cart-swagger.yaml).
 You can copy-paste contents into [editor.swagger.io](https://editor.swagger.io/)
 to play with more human friendly version.
+
+## How to run
+
+Install dependencies, initialize database and
+run local web server:
+
+```bash
+composer install
+composer run init-db
+composer run server
+```
+

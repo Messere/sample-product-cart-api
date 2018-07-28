@@ -14,7 +14,7 @@ class RemoveProductFromCartHandler
         $this->cartRepository = $cartRepository;
     }
 
-    public function handle(AddProductToCartCommand $command): void
+    public function handle(RemoveProductFromCartCommand $command): void
     {
         $this->cartRepository->decreaseProductCountInCart(
             $command->getCartId(),

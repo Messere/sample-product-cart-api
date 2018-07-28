@@ -60,8 +60,10 @@ class SqliteCartRepository implements ICartRepository
     public function decreaseProductCountInCart(UuidInterface $cartId, UuidInterface $productId): void
     {
         $currentAmount = $this->getAmount($cartId, $productId);
-        if (0 !== $currentAmount) {
+        if ($currentAmount > 1) {
             $this->changeProductAmount($cartId, $productId, -1);
+        } else {
+            $this->deleteProductFromCart($cartId, $productId);
         }
     }
 
@@ -81,9 +83,22 @@ class SqliteCartRepository implements ICartRepository
     private function changeProductAmount(UuidInterface $cartId, UuidInterface $productId, int $amountChange): void
     {
         $statement = $this->pdo->prepare(
-            'update cart set amount = amount '
-            . ($amountChange > 0 ? '+ ' . $amountChange : $amountChange)
-            . ' where cart_id = :cartId and cartProduct_id = :cartProductId'
+            $amountChange > 0
+             ? 'update cart set amount = amount + :change where cart_id = :cartId and cartProduct_id = :cartProductId'
+             : 'update cart set amount = amount - :change where cart_id = :cartId and cartProduct_id = :cartProductId'
+        );
+
+        $statement->execute([
+            'cartId' => $cartId->toString(),
+            'cartProductId' => $productId->toString(),
+            'change' => abs($amountChange),
+        ]);
+    }
+
+    private function deleteProductFromCart(UuidInterface $cartId, UuidInterface $productId): void
+    {
+        $statement = $this->pdo->prepare(
+            'delete from cart where cart_id = :cartId and cartProduct_id = :cartProductId'
         );
 
         $statement->execute([

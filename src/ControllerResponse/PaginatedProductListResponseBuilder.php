@@ -52,7 +52,6 @@ class PaginatedProductListResponseBuilder
                 break;
             }
             $serializedProducts[$productNumber] = $product->jsonSerialize();
-            $serializedProducts[$productNumber]['priceFormatted'] = $this->formatPrice($product->getPrice());
         }
         return $serializedProducts;
     }
@@ -83,14 +82,5 @@ class PaginatedProductListResponseBuilder
     private function buildLink(string $routeName, int $page): array
     {
         return [ 'href' => $this->urlGenerator->generate($routeName, [ 'page' => $page ]) ];
-    }
-
-    private function formatPrice(Price $price): string
-    {
-        return sprintf(
-            '%.' . log10($price->getDivisor()) . 'f %s',
-            $price->getAmount()/$price->getDivisor(),
-            $price->getCurrency()->getName()
-        );
     }
 }
