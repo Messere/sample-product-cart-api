@@ -7,8 +7,11 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+/**
+ * register framework event that parses json payload from request body and
+ * injects it into Request parameters accessible by "get()".
+ */
 class ParseJsonPayload implements EventSubscriberInterface
-
 {
     public static function getSubscribedEvents(): array
     {

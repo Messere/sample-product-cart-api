@@ -7,25 +7,20 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class AddProductRequestValidator
 {
-    private $priceValidator;
-
-    public function __construct(PriceValidator $priceValidator)
-    {
-        $this->priceValidator = $priceValidator;
-    }
-
     /**
      * @param Request $request
      * @throws BadRequestHttpException
      */
     public function assertValidRequest(Request $request): void
     {
-        $name = $request->get('name', '');
-        if ('' === $name) {
-            throw new BadRequestHttpException('Product name cannot be empty');
+        $name = $request->get('name');
+        if ($name === null || !\is_scalar($name)) {
+            throw new BadRequestHttpException('Missing or invalid product name');
         }
 
-        $price = (array)$request->get('price', []);
-        $this->priceValidator->assertValidPrice($price);
+        $price = $request->get('price');
+        if ($price === null || !\is_array($price)) {
+            throw new BadRequestHttpException('Missing or invalid product price');
+        }
     }
 }

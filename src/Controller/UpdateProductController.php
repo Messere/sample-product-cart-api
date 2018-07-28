@@ -2,48 +2,47 @@
 
 namespace Messere\Cart\Controller;
 
-use Messere\Cart\ControllerValidator\AddProductRequestValidator;
-use Messere\Cart\Domain\Price\Currency;
-use Messere\Cart\Domain\Price\Price;
-use Messere\Cart\Domain\Product\Command\AddProductCommand;
+use Messere\Cart\ControllerValidator\UpdateProductRequestValidator;
+use Messere\Cart\Domain\Product\Command\UpdateProductCommand;
 use Messere\Cart\Domain\Product\Product\ProductException;
 use Messere\Cart\Domain\Product\Product\ProductValidationException;
+use Ramsey\Uuid\Uuid;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AddProductController
+class UpdateProductController
 {
     private $commandBus;
     private $validator;
 
     public function __construct(
         CommandBus $commandBus,
-        AddProductRequestValidator $validator
+        UpdateProductRequestValidator $validator
     ) {
         $this->commandBus = $commandBus;
         $this->validator = $validator;
     }
 
     /**
-     * @Route("/v1/product", methods={"POST"})
+     * @Route("/v1/product/{productId}", methods={"PATCH"})
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-    public function addProduct(Request $request): Response
+    public function updateProduct(Request $request): Response
     {
         $this->validator->assertValidRequest($request);
 
         $price = (array)$request->get('price', []);
-        $command = new AddProductCommand(
-            $request->get('name', ''),
-            $price['amount'] ?? 0,
-            $price['divisor'] ?? 0,
-            strtoupper($price['currency'] ?? '')
+        $command = new UpdateProductCommand(
+            Uuid::fromString($request->get('productId')),
+            $request->get('name'),
+            $price['amount'] ?? null,
+            $price['divisor'] ?? null,
+            ($price['currency'] ?? null) !== null ? strtoupper($price['currency']) : null
         );
 
         try {
@@ -52,8 +51,6 @@ class AddProductController
             throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
-        return new JsonResponse([
-            'id' => $command->getId(),
-        ]);
+        return new Response('', 204);
     }
 }

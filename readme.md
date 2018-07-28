@@ -37,10 +37,10 @@ microservice would expose REST endpoint and cart microservice would use it to
 fetch information about product. For simplicity this project allows cart service
 to reuse product repository.
 
-![diagram](cart.png)
+![diagram](doc/cart.png)
 
 ## REST Endpoints Definitions
 
-See [product-swagger](product-swagger.yaml) and [cart-swagger](cart-swagger.yaml).
+See [product-swagger](doc/product-swagger.yaml) and [cart-swagger](doc/cart-swagger.yaml).
 You can copy-paste contents into [editor.swagger.io](https://editor.swagger.io/)
 to play with more human friendly version.

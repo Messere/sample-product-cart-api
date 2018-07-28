@@ -29,9 +29,65 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    Messere\Cart\Product\AddProductHandler:
-        public: true
-        class: Messere\Cart\Product\AddProductHandler
-        tags:
-        - { name: command_handler, handles: Messere\Cart\Product\AddProductCommand }
+    PDO:
+        class: \PDO
+        arguments:
+        - 'sqlite:../var/data.db'
 
+    SimpleBus\Message\Bus\MessageBus:
+        public: true
+        alias: simple_bus.event_bus
+
+    Messere\Cart\Domain\Product\Command\AddProductHandler:
+        public: true
+        class: Messere\Cart\Domain\Product\Command\AddProductHandler
+        tags:
+        - { name: command_handler, handles: Messere\Cart\Domain\Product\Command\AddProductCommand }
+
+    Messere\Cart\Domain\Product\Command\RemoveProductHandler:
+        public: true
+        class: Messere\Cart\Domain\Product\Command\RemoveProductHandler
+        tags:
+        - { name: command_handler, handles: Messere\Cart\Domain\Product\Command\RemoveProductCommand }
+
+    Messere\Cart\Domain\Product\Command\UpdateProductHandler:
+        public: true
+        class: Messere\Cart\Domain\Product\Command\UpdateProductHandler
+        tags:
+        - { name: command_handler, handles: Messere\Cart\Domain\Product\Command\UpdateProductCommand }
+
+    Messere\Cart\Domain\Cart\Command\AddCartHandler:
+        public: true
+        class: Messere\Cart\Domain\Cart\Command\AddCartHandler
+        tags:
+        - { name: command_handler, handles: Messere\Cart\Domain\Cart\Command\AddCartCommand }
+
+    Messere\Cart\Domain\Cart\Command\AddProductToCartHandler:
+        public: true
+        class: Messere\Cart\Domain\Cart\Command\AddProductToCartHandler
+        tags:
+        - { name: command_handler, handles: Messere\Cart\Domain\Cart\Command\AddProductToCartCommand }
+
+    Messere\Cart\Domain\Cart\Command\RemoveProductFromCartHandler:
+        public: true
+        class: Messere\Cart\Domain\Cart\Command\RemoveProductFromCartHandler
+        tags:
+        - { name: command_handler, handles: Messere\Cart\Domain\Cart\Command\RemoveProductFromCartCommand }
+
+    Messere\Cart\Domain\CartProduct\EventHandler\ProductCreatedHandler:
+        public: true
+        class: Messere\Cart\Domain\CartProduct\EventHandler\ProductCreatedHandler
+        tags:
+        - { name: event_subscriber, subscribes_to: Messere\Cart\Domain\Product\Event\ProductCreatedEvent }
+
+    Messere\Cart\Domain\CartProduct\EventHandler\ProductRemovedHandler:
+        public: true
+        class: Messere\Cart\Domain\CartProduct\EventHandler\ProductRemovedHandler
+        tags:
+        - { name: event_subscriber, subscribes_to: Messere\Cart\Domain\Product\Event\ProductRemovedEvent }
+
+    Messere\Cart\Domain\CartProduct\EventHandler\ProductUpdatedHandler:
+        public: true
+        class: Messere\Cart\Domain\CartProduct\EventHandler\ProductUpdatedHandler
+        tags:
+        - { name: event_subscriber, subscribes_to: Messere\Cart\Domain\Product\Event\ProductUpdatedEvent }
