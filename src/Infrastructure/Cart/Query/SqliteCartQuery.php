@@ -4,6 +4,8 @@ namespace Messere\Cart\Infrastructure\Cart\Query;
 
 use Messere\Cart\Domain\Cart\Query\ICartQuery;
 use Messere\Cart\Domain\CartProduct\Product\CartProduct;
+use Messere\Cart\Domain\CartProduct\Product\CartProductBuilder;
+use Messere\Cart\Domain\Price\PriceValidationException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -24,6 +26,7 @@ class SqliteCartQuery implements ICartQuery
     /**
      * @param UuidInterface $cartId
      * @return CartProduct[]
+     * @throws PriceValidationException
      */
     public function getProductsFromCart(UuidInterface $cartId): array
     {

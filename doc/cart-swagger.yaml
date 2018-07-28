@@ -5,7 +5,7 @@ info:
   title: "Cart"
 schemes:
 - "http"
-host: "fill.example.host.here"
+host: "127.0.0.1:8000"
 paths:
   /v1/cart:
     post:
@@ -95,10 +95,10 @@ definitions:
       currency:
         type: "string"
         enum:
-          - PLN
+        - PLN
   CartId:
     type: "object"
-    requried:
+    required:
     - id
     properties:
       id:

@@ -1,8 +1,7 @@
 <?php
 
-namespace Messere\Cart\Domain\Product\Product;
+namespace Messere\Cart\Domain\CartProduct\Product;
 
-use Messere\Cart\Domain\CartProduct\Product\CartProduct;
 use Messere\Cart\Domain\Price\PriceBuilder;
 use Messere\Cart\Domain\Price\PriceValidationException;
 use Ramsey\Uuid\UuidInterface;

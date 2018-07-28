@@ -5,7 +5,7 @@ info:
   title: "Product"
 schemes:
 - "http"
-host: "fill.example.host.here"
+host: "127.0.0.1:8000"
 paths:
   /v1/product:
     post:
