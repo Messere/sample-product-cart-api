@@ -15,9 +15,6 @@ class CartController
 {
     private $cartQuery;
     private $uuidFactory;
-    /**
-     * @var CartQueryValidator
-     */
     private $validator;
 
     public function __construct(
