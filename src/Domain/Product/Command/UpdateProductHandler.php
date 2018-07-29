@@ -13,6 +13,8 @@ use SimpleBus\Message\Bus\MessageBus;
 
 class UpdateProductHandler
 {
+    public const PRODUCT_DOES_NOT_EXIST = 404;
+
     private $productRepository;
     private $priceBuilder;
     private $productValidator;
@@ -41,7 +43,7 @@ class UpdateProductHandler
         );
 
         if (null === $product) {
-            throw new ProductException('Product does not exist');
+            throw new ProductException('Product does not exist', static::PRODUCT_DOES_NOT_EXIST);
         }
 
         $updatedProduct = $product;

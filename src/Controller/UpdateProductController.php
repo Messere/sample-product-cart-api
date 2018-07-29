@@ -4,12 +4,14 @@ namespace Messere\Cart\Controller;
 
 use Messere\Cart\ControllerValidator\UpdateProductRequestValidator;
 use Messere\Cart\Domain\Product\Command\UpdateProductCommand;
+use Messere\Cart\Domain\Product\Command\UpdateProductHandler;
 use Messere\Cart\Domain\Product\Product\ProductException;
 use Ramsey\Uuid\UuidFactoryInterface;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateProductController
@@ -50,6 +52,9 @@ class UpdateProductController
         try {
             $this->commandBus->handle($command);
         } catch (ProductException $e) {
+            if ($e->getCode() === UpdateProductHandler::PRODUCT_DOES_NOT_EXIST) {
+                throw new NotFoundHttpException($e->getMessage(), $e);
+            }
             throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
