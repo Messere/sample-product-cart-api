@@ -1,5 +1,8 @@
 # Sample product / cart API
 
+This is sample REST service that provides simple functionality of product store and shopping
+cart. 
+
 ## Requirements
 
 Client should be able to:
@@ -41,7 +44,8 @@ to reuse product repository.
 
 ## REST Endpoints Definitions
 
-See [swagger](public/swagger.yaml). 
+See raw [swagger file](public/swagger.yaml) or [Swagger UI](http://127.0.0.1:8000/swagger/) (after you
+follow "How to run" section). 
 
 ## How to run
 
@@ -50,11 +54,25 @@ See [swagger](public/swagger.yaml).
 composer install
 
 # make sure tests pass, code is clean 
-composer build 
+composer check 
 
 # start built in www server on port 8000
-composer server
+php bin/console server:run
 ```
 
 Now you can [play with API directly](http://127.0.0.1:8000/v1/product), or via built in
 [Swagger UI](http://127.0.0.1:8000/swagger/).
+
+## Libraries / frameworks used:
+
+Software used in project include:
+
+- [Symfony 4](https://symfony.com/4)
+- [SimpleBus](http://docs.simplebus.io)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/)
+- [esky/enum](https://github.com/eskypl/enum)
+- [ramsey/uuid](https://github.com/ramsey/uuid)
+
+## License
+
+[MIT](LICENSE)

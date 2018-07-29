@@ -73,12 +73,11 @@
         "phpmd": "phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "fix": "phpcbf --standard=PSR2 src/",
         "init-db": "php -r \"copy('./doc/db-prototype.db', './var/data.db');\"",
-        "build": [
+        "check": [
             "@tests",
             "@phpcs",
             "@phpmd"
-        ],
-        "server": "php bin/console server:run"
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"
