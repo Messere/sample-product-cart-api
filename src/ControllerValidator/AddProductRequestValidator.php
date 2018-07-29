@@ -14,13 +14,25 @@ class AddProductRequestValidator
     public function assertValidRequest(Request $request): void
     {
         $name = $request->get('name');
-        if ($name === null || !\is_scalar($name)) {
+        if (!\is_scalar($name)) {
             throw new BadRequestHttpException('Missing or invalid product name');
         }
 
         $price = $request->get('price');
-        if ($price === null || !\is_array($price)) {
+        if (!\is_array($price)) {
             throw new BadRequestHttpException('Missing or invalid product price');
+        }
+
+        if (!\array_key_exists('amount', $price) || !\is_int($price['amount'])) {
+            throw new BadRequestHttpException('Missing or invalid product price amount');
+        }
+
+        if (!\array_key_exists('divisor', $price) || !\is_int($price['divisor'])) {
+            throw new BadRequestHttpException('Missing or invalid product price divisor');
+        }
+
+        if (!\array_key_exists('currency', $price) || !\is_string($price['currency'])) {
+            throw new BadRequestHttpException('Missing or invalid product price currency');
         }
     }
 }

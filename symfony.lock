@@ -2,17 +2,26 @@
     "beberlei/assert": {
         "version": "v2.9.6"
     },
-    "composer/ca-bundle": {
-        "version": "1.1.1"
+    "behat/behat": {
+        "version": "v3.4.3"
     },
-    "composer/composer": {
-        "version": "1.6.5"
+    "behat/gherkin": {
+        "version": "v4.5.1"
     },
-    "composer/semver": {
-        "version": "1.4.2"
+    "behat/symfony2-extension": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "6b63fb76d3bb2dd16098f12adf6d6ca844e21862"
+        }
     },
-    "composer/spdx-licenses": {
-        "version": "1.4.0"
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
+    "container-interop/container-interop": {
+        "version": "1.2.0"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -50,12 +59,6 @@
     "esky/enum": {
         "version": "dev-master"
     },
-    "harmbandstra/swagger-ui-bundle": {
-        "version": "3.0.1"
-    },
-    "justinrainbow/json-schema": {
-        "version": "5.2.7"
-    },
     "ocramius/package-versions": {
         "version": "1.3.0"
     },
@@ -89,15 +92,6 @@
     "roave/security-advisories": {
         "version": "dev-master"
     },
-    "seld/cli-prompt": {
-        "version": "1.0.3"
-    },
-    "seld/jsonlint": {
-        "version": "1.7.1"
-    },
-    "seld/phar-utils": {
-        "version": "1.0.1"
-    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -116,14 +110,14 @@
     "squizlabs/php_codesniffer": {
         "version": "3.3.1"
     },
-    "swagger-api/swagger-ui": {
-        "version": "v3.17.6"
-    },
     "symfony/browser-kit": {
         "version": "v4.1.2"
     },
     "symfony/cache": {
         "version": "v4.1.2"
+    },
+    "symfony/class-loader": {
+        "version": "v3.4.13"
     },
     "symfony/config": {
         "version": "v4.1.2"
@@ -217,6 +211,15 @@
     },
     "symfony/test-pack": {
         "version": "v1.0.2"
+    },
+    "symfony/translation": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
+        }
     },
     "symfony/web-server-bundle": {
         "version": "3.3",

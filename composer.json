@@ -26,12 +26,15 @@
         "symfony/yaml": "^4.1"
     },
     "require-dev": {
+        "behat/behat": "^3.4",
+        "behat/symfony2-extension": "^2.1",
         "phpmd/phpmd": "^2.6",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.3",
         "symfony/dotenv": "^4.1",
         "symfony/test-pack": "^1.0",
-        "symfony/web-server-bundle": "^4.1"
+        "symfony/web-server-bundle": "^4.1",
+        "beberlei/assert": "^2.0"
     },
     "config": {
         "preferred-install": {
@@ -68,7 +71,10 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "tests": "php bin/phpunit",
+        "tests": [
+            "php bin/phpunit",
+            "behat"
+        ],
         "phpcs": "phpcs --standard=PSR2 src/",
         "phpmd": "phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "fix": "phpcbf --standard=PSR2 src/",

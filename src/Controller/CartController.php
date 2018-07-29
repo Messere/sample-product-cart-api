@@ -2,6 +2,7 @@
 
 namespace Messere\Cart\Controller;
 
+use Messere\Cart\ControllerValidator\CartQueryValidator;
 use Messere\Cart\Domain\Cart\Cart\Cart;
 use Messere\Cart\Domain\Cart\Query\ICartQuery;
 use Ramsey\Uuid\UuidFactoryInterface;
@@ -14,13 +15,19 @@ class CartController
 {
     private $cartQuery;
     private $uuidFactory;
+    /**
+     * @var CartQueryValidator
+     */
+    private $validator;
 
     public function __construct(
         ICartQuery $cartQuery,
-        UuidFactoryInterface $uuidFactory
+        UuidFactoryInterface $uuidFactory,
+        CartQueryValidator $validator
     ) {
         $this->cartQuery = $cartQuery;
         $this->uuidFactory = $uuidFactory;
+        $this->validator = $validator;
     }
 
     /**
@@ -30,6 +37,8 @@ class CartController
      */
     public function getProducts(Request $request): Response
     {
+        $this->validator->assertValidRequest($request);
+
         return new JsonResponse(
             new Cart(
                 $this->cartQuery->getProductsFromCart(

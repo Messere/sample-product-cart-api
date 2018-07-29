@@ -7,7 +7,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class SqliteCartRepository implements ICartRepository
 {
-
     private $pdo;
 
     private const CART_ID = 'cartId';
@@ -111,6 +110,17 @@ class SqliteCartRepository implements ICartRepository
 
         $statement->execute([
             self::CART_ID => $cartId->toString(),
+            self::CART_PRODUCT_ID => $productId->toString(),
+        ]);
+    }
+
+    public function removeProductFromCarts(UuidInterface $productId): void
+    {
+        $statement = $this->pdo->prepare(
+            'delete from cart where cartProduct_id = :cartProductId'
+        );
+
+        $statement->execute([
             self::CART_PRODUCT_ID => $productId->toString(),
         ]);
     }

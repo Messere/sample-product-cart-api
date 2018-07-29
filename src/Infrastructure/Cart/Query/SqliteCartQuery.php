@@ -34,7 +34,7 @@ class SqliteCartQuery implements ICartQuery
     {
         $statement = $this->pdo->prepare(
             'select cp.id, cp.name, cp.price_amount, cp.price_divisor, cp.price_currency, c.amount ' .
-            'from cart c left join cartProduct cp  on c.cartProduct_id = cp.id ' .
+            'from cart c join cartProduct cp  on c.cartProduct_id = cp.id ' .
             'where c.cart_id = :cartId and c.amount > 0 order by cp.name, cp.id'
         );
 

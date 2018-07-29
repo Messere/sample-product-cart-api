@@ -62,6 +62,19 @@ class Cart implements \JsonSerializable
     }
 
     /**
+     * @return null|string
+     */
+    public function getTotalPriceFormatted(): ?string
+    {
+        $price = $this->getTotalPrice();
+        return null === $price ? null : sprintf(
+            '%.2f %s',
+            $price->getAmount() / $price->getDivisor(),
+            $price->getCurrency()->getName()
+        );
+    }
+
+    /**
      * @return CartProduct[]
      */
     public function getProducts(): array
@@ -71,12 +84,22 @@ class Cart implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $price = $this->getTotalPrice();
-        return [
-            'totalPrice' => $price === null ? null : $price->jsonSerialize(),
+        $serialized = [
             'products' => array_map(function (CartProduct $product) {
                 return $product->jsonSerialize();
             }, $this->getProducts())
         ];
+
+        $price = $this->getTotalPrice();
+        if (null !== $price) {
+            $serialized['totalPrice'] = $price->jsonSerialize();
+        }
+
+        $priceFormatted = $this->getTotalPriceFormatted();
+        if (null !== $priceFormatted) {
+            $serialized['totalPriceFormatted'] = $priceFormatted;
+        }
+
+        return $serialized;
     }
 }

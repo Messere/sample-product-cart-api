@@ -38,6 +38,10 @@ paths:
       tags:
       - Product
       summary: "Get paginated list of products"
+      parameters:
+      - in: "query"
+        name: "page"
+        type: integer
       produces:
       - "application/json"
       responses:
@@ -206,11 +210,12 @@ definitions:
   Cart:
     type: "object"
     required:
-    - totalPrice
     - products
     properties:
       totalPrice:
         $ref: "#/definitions/Price"
+      totalPriceFormatted:
+        type: "string"
       products:
         type: "array"
         items:

@@ -9,4 +9,5 @@ interface ICartRepository
     public function increaseProductCountInCart(UuidInterface $cartId, UuidInterface $productId): void;
     public function decreaseProductCountInCart(UuidInterface $cartId, UuidInterface $productId): void;
     public function getTotalAmount(UuidInterface $cartId): int;
+    public function removeProductFromCarts(UuidInterface $productId): void;
 }
