@@ -72,7 +72,7 @@
             "@auto-scripts"
         ],
         "tests": [
-            "php bin/phpunit",
+            "phpunit",
             "behat"
         ],
         "phpcs": "phpcs --standard=PSR2 src/",
