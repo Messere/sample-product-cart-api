@@ -41,12 +41,11 @@ to reuse product repository.
 
 ## REST Endpoints Definitions
 
-See [product-swagger](doc/product-swagger.yaml) and [cart-swagger](doc/cart-swagger.yaml).
+See [swagger](doc/swagger.yaml).
 You can copy-paste contents into [editor.swagger.io](https://editor.swagger.io/)
 to play with more human friendly version.
 
 ## How to run
-
 
 ```bash
 # install dependencies
