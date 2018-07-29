@@ -14,7 +14,6 @@ class SqliteCartProductRepository implements ICartProductRepository
         \PDO $pdo
     ) {
         $this->pdo = $pdo;
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
     public function remove(UuidInterface $productId): void

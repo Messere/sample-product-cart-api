@@ -245,7 +245,7 @@ definitions:
     properties:
       name:
         type: "string"
-      currency:
+      price:
         $ref: "#/definitions/Price"
   Product:
     type: "object"

@@ -18,7 +18,6 @@ class SqliteProductQuery implements IProductQuery
         UuidFactoryInterface $uuidFactory
     ) {
         $this->pdo = $pdo;
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->productBuilder = $productBuilder;
         $this->uuidFactory = $uuidFactory;
     }

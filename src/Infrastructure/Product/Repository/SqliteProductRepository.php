@@ -17,7 +17,6 @@ class SqliteProductRepository implements IProductRepository
         ProductBuilder $productBuilder
     ) {
         $this->pdo = $pdo;
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->productBuilder = $productBuilder;
     }
 

@@ -21,7 +21,6 @@ class SqliteCartQuery implements ICartQuery
         UuidFactoryInterface $uuidFactory
     ) {
         $this->pdo = $pdo;
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->cartProductBuilder = $cartProductBuilder;
         $this->uuidFactory = $uuidFactory;
     }
