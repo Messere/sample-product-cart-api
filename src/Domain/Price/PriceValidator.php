@@ -10,7 +10,13 @@ class PriceValidator
      */
     public function validate(Price $price): void
     {
-        $divisorPower = log10($price->getDivisor());
+        $divisor = $price->getDivisor();
+
+        if ($divisor === 0) {
+            throw new PriceValidationException('Divisor must be greater than zero');
+        }
+
+        $divisorPower = log10($divisor);
 
         /** @noinspection TypeUnsafeComparisonInspection */
         if ($divisorPower != (int)$divisorPower) {
