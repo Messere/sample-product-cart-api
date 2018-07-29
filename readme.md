@@ -53,7 +53,7 @@ follow "How to run" section).
 # install dependencies
 composer install
 
-# make sure tests pass, code is clean 
+# make sure tests pass (phpunit + behat), code is clean (phpcs + phpmd) 
 composer check 
 
 # start built in www server on port 8000
@@ -72,6 +72,7 @@ Software used in project include:
 - [Swagger UI](https://swagger.io/tools/swagger-ui/)
 - [esky/enum](https://github.com/eskypl/enum)
 - [ramsey/uuid](https://github.com/ramsey/uuid)
+- [Behat](http://behat.org/en/latest/)
 
 ## License
 
