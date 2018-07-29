@@ -54,7 +54,6 @@ class UpdateProductHandler
         if ($command->getPriceAmount() !== null
             && $command->getPriceDivisor() !== null
             && $command->getPriceCurrency() !== null) {
-
             try {
                 $updatedProduct = $updatedProduct->withPrice(
                     $this->priceBuilder->buildPrice(
@@ -75,7 +74,7 @@ class UpdateProductHandler
                 throw new ProductException('Updated product would be invalid: ' . $e->getMessage(), 0, $e);
             }
             $this->productRepository->save($updatedProduct);
-            $this->eventBus->handle(new ProductUpdatedEvent($product->getId()));
+            $this->eventBus->handle(new ProductUpdatedEvent($product->getProductId()));
         }
     }
 }

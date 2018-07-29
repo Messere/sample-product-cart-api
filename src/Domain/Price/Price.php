@@ -39,27 +39,18 @@ class Price implements \JsonSerializable
         ];
     }
 
-    static function getZeroPrice(Currency $currency, int $divisor = 100): Price
-    {
-        return new Price(0, $currency, $divisor);
-    }
-
-    public function add(Price $price)
+    public function add(Price $price): Price
     {
         if (!$this->getCurrency()->isEqual($price->getCurrency())) {
             throw new PriceException('Cannot add prices with different currencies');
         }
 
-        if ($price->getDivisor() > $this->getDivisor()) {
-            $newDivisor = $price->getDivisor();
-            $newAmount = $price->getAmount() + $this->withDivisor($newDivisor)->getAmount();
-        } elseif ($price->getDivisor() < $this->getDivisor()) {
-            $newDivisor = $this->getDivisor();
-            $newAmount = $this->getAmount() + $price->withDivisor($newDivisor)->getAmount();
-        } else {
-            $newDivisor = $price->getDivisor();
-            $newAmount = $price->getAmount() + $this->getAmount();
+        if ($price->getAmount() === 0) {
+            return $this;
         }
+
+        $newDivisor = max($price->getDivisor(), $this->getDivisor());
+        $newAmount = $this->withDivisor($newDivisor)->getAmount() + $price->withDivisor($newDivisor)->getAmount();
 
         return new Price($newAmount, $price->getCurrency(), $newDivisor);
     }
@@ -68,6 +59,10 @@ class Price implements \JsonSerializable
     {
         if ($newDivisor < $this->getDivisor()) {
             throw new PriceException('Cannot decrease divisor');
+        }
+
+        if ($newDivisor === $this->getDivisor()) {
+            return $this;
         }
 
         $newAmount = $this->getAmount() * $newDivisor / $this->getDivisor();

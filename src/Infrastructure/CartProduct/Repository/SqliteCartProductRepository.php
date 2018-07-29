@@ -36,7 +36,7 @@ class SqliteCartProductRepository implements ICartProductRepository
         );
 
         $statement->execute([
-            'id' => $product->getId()->toString(),
+            'id' => $product->getCartProductId()->toString(),
             'name' => $product->getName(),
             'price_amount' => $product->getPrice()->getAmount(),
             'price_divisor' => $product->getPrice()->getDivisor(),

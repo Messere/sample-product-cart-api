@@ -4,7 +4,7 @@ namespace Messere\Cart\Controller;
 
 use Messere\Cart\ControllerValidator\RemoveProductRequestValidator;
 use Messere\Cart\Domain\Product\Command\RemoveProductCommand;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactoryInterface;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,13 +14,16 @@ class RemoveProductController
 {
     private $commandBus;
     private $validator;
+    private $uuidFactory;
 
     public function __construct(
         CommandBus $commandBus,
-        RemoveProductRequestValidator $validator
+        RemoveProductRequestValidator $validator,
+        UuidFactoryInterface $uuidFactory
     ) {
         $this->commandBus = $commandBus;
         $this->validator = $validator;
+        $this->uuidFactory = $uuidFactory;
     }
 
     /**
@@ -34,7 +37,7 @@ class RemoveProductController
         $this->validator->assertValidRequest($request);
 
         $command = new RemoveProductCommand(
-            Uuid::fromString(
+            $this->uuidFactory->fromString(
                 $request->get('productId')
             )
         );

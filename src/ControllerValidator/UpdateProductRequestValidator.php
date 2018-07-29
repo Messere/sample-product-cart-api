@@ -11,12 +11,13 @@ class UpdateProductRequestValidator
     /**
      * @param Request $request
      * @throws BadRequestHttpException
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function assertValidRequest(Request $request): void
     {
-        $id = $request->get('productId');
+        $productId = $request->get('productId');
 
-        if (null === $id || !Uuid::isValid($id)) {
+        if (null === $productId || !Uuid::isValid($productId)) {
             throw new BadRequestHttpException('Invalid or missing productId');
         }
 

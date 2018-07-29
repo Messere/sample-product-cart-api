@@ -2,7 +2,6 @@
 
 namespace Messere\Cart\Domain\Product\Command;
 
-
 use Messere\Cart\Domain\Product\Event\ProductCreatedEvent;
 use Messere\Cart\Domain\Product\Product\ProductBuilder;
 use Messere\Cart\Domain\Product\Product\ProductException;
@@ -35,7 +34,7 @@ class AddProductHandler
     {
         try {
             $product = $this->productBuilder->build(
-                $command->getId(),
+                $command->getProductId(),
                 $command->getName(),
                 $command->getPriceAmount(),
                 $command->getPriceDivisor(),
@@ -46,6 +45,6 @@ class AddProductHandler
         }
 
         $this->productRepository->save($product);
-        $this->eventBus->handle(new ProductCreatedEvent($product->getId()));
+        $this->eventBus->handle(new ProductCreatedEvent($product->getProductId()));
     }
 }

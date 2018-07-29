@@ -3,11 +3,9 @@
 namespace Messere\Cart\Controller;
 
 use Messere\Cart\ControllerValidator\AddProductRequestValidator;
-use Messere\Cart\Domain\Price\Currency;
-use Messere\Cart\Domain\Price\Price;
 use Messere\Cart\Domain\Product\Command\AddProductCommand;
 use Messere\Cart\Domain\Product\Product\ProductException;
-use Messere\Cart\Domain\Product\Product\ProductValidationException;
+use Ramsey\Uuid\UuidFactoryInterface;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,13 +17,16 @@ class AddProductController
 {
     private $commandBus;
     private $validator;
+    private $uuidFactory;
 
     public function __construct(
         CommandBus $commandBus,
-        AddProductRequestValidator $validator
+        AddProductRequestValidator $validator,
+        UuidFactoryInterface $uuidFactory
     ) {
         $this->commandBus = $commandBus;
         $this->validator = $validator;
+        $this->uuidFactory = $uuidFactory;
     }
 
     /**
@@ -43,7 +44,8 @@ class AddProductController
             $request->get('name', ''),
             $price['amount'] ?? 0,
             $price['divisor'] ?? 0,
-            strtoupper($price['currency'] ?? '')
+            strtoupper($price['currency'] ?? ''),
+            $this->uuidFactory
         );
 
         try {
@@ -53,7 +55,7 @@ class AddProductController
         }
 
         return new JsonResponse([
-            'id' => $command->getId(),
+            'id' => $command->getProductId(),
         ]);
     }
 }

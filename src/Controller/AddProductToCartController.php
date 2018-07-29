@@ -5,7 +5,7 @@ namespace Messere\Cart\Controller;
 use Messere\Cart\ControllerValidator\CartOperationValidator;
 use Messere\Cart\Domain\Cart\Cart\CartException;
 use Messere\Cart\Domain\Cart\Command\AddProductToCartCommand;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactoryInterface;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,14 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class AddProductToCartController
 {
     private $commandBus;
-    private $cartOperationValidator;
+    private $validator;
+    private $uuidFactory;
 
     public function __construct(
         CommandBus $commandBus,
-        CartOperationValidator $cartOperationValidator
+        CartOperationValidator $validator,
+        UuidFactoryInterface $uuidFactory
     ) {
         $this->commandBus = $commandBus;
-        $this->cartOperationValidator = $cartOperationValidator;
+        $this->validator = $validator;
+        $this->uuidFactory = $uuidFactory;
     }
 
     /**
@@ -32,11 +35,11 @@ class AddProductToCartController
      */
     public function addProduct(Request $request): Response
     {
-        $this->cartOperationValidator->assertValidRequest($request);
+        $this->validator->assertValidRequest($request);
 
         $command = new AddProductToCartCommand(
-            Uuid::fromString($request->get('cartId')),
-            Uuid::fromString($request->get('productId'))
+            $this->uuidFactory->fromString($request->get('cartId')),
+            $this->uuidFactory->fromString($request->get('productId'))
         );
 
         try {

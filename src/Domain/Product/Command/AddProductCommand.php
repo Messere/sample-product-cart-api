@@ -3,12 +3,12 @@
 namespace Messere\Cart\Domain\Product\Command;
 
 use Messere\Cart\Domain\Product\Product\ProductException;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class AddProductCommand
 {
-    private $id;
+    private $productId;
     private $name;
     private $priceAmount;
     private $priceDivisor;
@@ -19,11 +19,17 @@ class AddProductCommand
      * @param int $priceAmount
      * @param int $priceDivisor
      * @param string $priceCurrency
+     * @param UuidFactoryInterface $uuidFactory
      */
-    public function __construct(string $name, int $priceAmount, int $priceDivisor, string $priceCurrency)
-    {
+    public function __construct(
+        string $name,
+        int $priceAmount,
+        int $priceDivisor,
+        string $priceCurrency,
+        UuidFactoryInterface $uuidFactory
+    ) {
         try {
-            $this->id = Uuid::uuid4();
+            $this->productId = $uuidFactory->uuid4();
         } catch (\Exception $e) {
             throw new ProductException('Failed to generate new product ID: ' . $e->getMessage(), 0, $e);
         }
@@ -33,9 +39,9 @@ class AddProductCommand
         $this->priceCurrency = $priceCurrency;
     }
 
-    public function getId(): UuidInterface
+    public function getProductId(): UuidInterface
     {
-        return $this->id;
+        return $this->productId;
     }
 
     public function getName(): string

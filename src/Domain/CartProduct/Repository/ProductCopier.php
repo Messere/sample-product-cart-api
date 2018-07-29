@@ -9,6 +9,12 @@ class ProductCopier
     private $cartProductRepository;
     private $productRepository;
 
+    /**
+     * ProductCopier constructor.
+     * @param ICartProductRepository $cartProductRepository
+     * @param IProductRepository $productRepository
+     * @SuppressWarnings(PHPMD.LongVariable)
+     */
     public function __construct(ICartProductRepository $cartProductRepository, IProductRepository $productRepository)
     {
         $this->cartProductRepository = $cartProductRepository;

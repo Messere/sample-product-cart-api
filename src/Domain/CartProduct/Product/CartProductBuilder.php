@@ -16,7 +16,7 @@ class CartProductBuilder
     }
 
     /**
-     * @param UuidInterface $id
+     * @param UuidInterface $cartProductId
      * @param string $name
      * @param int $priceAmount
      * @param int $priceDivisor
@@ -26,7 +26,7 @@ class CartProductBuilder
      * @throws PriceValidationException
      */
     public function build(
-        UuidInterface $id,
+        UuidInterface $cartProductId,
         string $name,
         int $priceAmount,
         int $priceDivisor,
@@ -35,6 +35,6 @@ class CartProductBuilder
     ): CartProduct {
 
         $price = $this->priceBuilder->buildPrice($priceAmount, $priceDivisor, $currencySymbol);
-        return new CartProduct($id, $name, $price, $amount);
+        return new CartProduct($cartProductId, $name, $price, $amount);
     }
 }

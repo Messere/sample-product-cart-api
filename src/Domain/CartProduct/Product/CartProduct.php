@@ -7,22 +7,22 @@ use Ramsey\Uuid\UuidInterface;
 
 class CartProduct implements \JsonSerializable
 {
-    private $id;
+    private $cartProductId;
     private $name;
     private $price;
     private $amount;
 
-    public function __construct(UuidInterface $id, string $name, Price $price, int $amount = 1)
+    public function __construct(UuidInterface $cartProductId, string $name, Price $price, int $amount = 1)
     {
-        $this->id = $id;
+        $this->cartProductId = $cartProductId;
         $this->name = $name;
         $this->price = $price;
         $this->amount = $amount;
     }
 
-    public function getId(): UuidInterface
+    public function getCartProductId(): UuidInterface
     {
-        return $this->id;
+        return $this->cartProductId;
     }
 
     public function getName(): string
@@ -43,7 +43,7 @@ class CartProduct implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->getId()->toString(),
+            'id' => $this->getCartProductId()->toString(),
             'name' => $this->getName(),
             'unitPrice' => $this->getPrice()->jsonSerialize(),
             'amount' => $this->getAmount(),

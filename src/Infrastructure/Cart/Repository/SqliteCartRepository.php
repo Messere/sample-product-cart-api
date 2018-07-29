@@ -7,7 +7,12 @@ use Ramsey\Uuid\UuidInterface;
 
 class SqliteCartRepository implements ICartRepository
 {
+
     private $pdo;
+
+    private const CART_ID = 'cartId';
+    private const CART_PRODUCT_ID = 'cartProductId';
+    private const AMOUNT = 'amount';
 
     public function __construct(
         \PDO $pdo
@@ -23,13 +28,13 @@ class SqliteCartRepository implements ICartRepository
         );
 
         $statement->execute([
-            'cartId' => $cartId->toString(),
-            'cartProductId' => $productId->toString(),
+            self::CART_ID => $cartId->toString(),
+            self::CART_PRODUCT_ID => $productId->toString(),
         ]);
 
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        return $result ? $result['amount'] : 0;
+        return $result ? $result[self::AMOUNT] : 0;
     }
 
     public function getTotalAmount(UuidInterface $cartId): int
@@ -39,32 +44,36 @@ class SqliteCartRepository implements ICartRepository
         );
 
         $statement->execute([
-            'cartId' => $cartId->toString(),
+            self::CART_ID => $cartId->toString(),
         ]);
 
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        return $result && $result['amount'] ? $result['amount'] : 0;
+        return $result && $result[self::AMOUNT] ? $result[self::AMOUNT] : 0;
     }
 
     public function increaseProductCountInCart(UuidInterface $cartId, UuidInterface $productId): void
     {
         $currentAmount = $this->getAmount($cartId, $productId);
+
         if (0 === $currentAmount) {
             $this->insertFirstProduct($cartId, $productId);
-        } else {
-            $this->changeProductAmount($cartId, $productId, 1);
+            return;
         }
+
+        $this->changeProductAmount($cartId, $productId, 1);
     }
 
     public function decreaseProductCountInCart(UuidInterface $cartId, UuidInterface $productId): void
     {
         $currentAmount = $this->getAmount($cartId, $productId);
+
         if ($currentAmount > 1) {
             $this->changeProductAmount($cartId, $productId, -1);
-        } else {
-            $this->deleteProductFromCart($cartId, $productId);
+            return;
         }
+
+        $this->deleteProductFromCart($cartId, $productId);
     }
 
     private function insertFirstProduct(UuidInterface $cartId, UuidInterface $productId): void
@@ -75,8 +84,8 @@ class SqliteCartRepository implements ICartRepository
         );
 
         $statement->execute([
-            'cartId' => $cartId->toString(),
-            'cartProductId' => $productId->toString(),
+            self::CART_ID => $cartId->toString(),
+            self::CART_PRODUCT_ID => $productId->toString(),
         ]);
     }
 
@@ -89,8 +98,8 @@ class SqliteCartRepository implements ICartRepository
         );
 
         $statement->execute([
-            'cartId' => $cartId->toString(),
-            'cartProductId' => $productId->toString(),
+            self::CART_ID => $cartId->toString(),
+            self::CART_PRODUCT_ID => $productId->toString(),
             'change' => abs($amountChange),
         ]);
     }
@@ -102,8 +111,8 @@ class SqliteCartRepository implements ICartRepository
         );
 
         $statement->execute([
-            'cartId' => $cartId->toString(),
-            'cartProductId' => $productId->toString(),
+            self::CART_ID => $cartId->toString(),
+            self::CART_PRODUCT_ID => $productId->toString(),
         ]);
     }
 }

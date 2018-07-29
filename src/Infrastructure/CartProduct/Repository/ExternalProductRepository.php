@@ -25,7 +25,7 @@ class ExternalProductRepository implements IProductRepository
         $product = $this->productRepository->getById($productId);
         if (null !== $product) {
             return new CartProduct(
-                $product->getId(),
+                $product->getProductId(),
                 $product->getName(),
                 $product->getPrice()
             );

@@ -36,10 +36,12 @@ class Cart implements \JsonSerializable
             return null;
         }
 
-        $priceSum = Price::getZeroPrice(
+        $priceSum = new Price(
+            0,
             $products[0]->getPrice()->getCurrency(),
             $products[0]->getPrice()->getDivisor()
         );
+
         foreach ($products as $product) {
             $priceSum = $priceSum->add(
                 $product->getPrice()->multipliedBy(

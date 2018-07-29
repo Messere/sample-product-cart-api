@@ -29,7 +29,7 @@ class SqliteProductRepository implements IProductRepository
         );
 
         $statement->execute([
-            'id' => $product->getId()->toString(),
+            'id' => $product->getProductId()->toString(),
             'name' => $product->getName(),
             'price_amount' => $product->getPrice()->getAmount(),
             'price_divisor' => $product->getPrice()->getDivisor(),

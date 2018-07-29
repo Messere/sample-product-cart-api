@@ -11,6 +11,7 @@ class RemoveProductRequestValidator
     /**
      * @param Request $request
      * @throws BadRequestHttpException
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function assertValidRequest(Request $request): void
     {

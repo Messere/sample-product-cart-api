@@ -30,16 +30,16 @@ class PaginatedProductListController
      */
     public function getProducts(Request $request): Response
     {
-        $productPaginationParams = new ProductPaginationRequest(
+        $paginationRequest = new ProductPaginationRequest(
             $request->get('page')
         );
         return new JsonResponse(
             $this->responseBuilder->buildResponse(
                 $this->productQuery->getProducts(
-                    $productPaginationParams->getOffset(),
-                    $productPaginationParams->getLimit()
+                    $paginationRequest->getOffset(),
+                    $paginationRequest->getLimit()
                 ),
-                $productPaginationParams,
+                $paginationRequest,
                 ProductPaginationRequest::PAGE_SIZE,
                 'product_list'
             )

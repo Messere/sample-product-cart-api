@@ -3,7 +3,6 @@
 namespace Messere\Cart\ControllerResponse;
 
 use Messere\Cart\ControllerRequest\ProductPaginationRequest;
-use Messere\Cart\Domain\Price\Price;
 use Messere\Cart\Domain\Product\Product\Product;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -23,32 +22,32 @@ class PaginatedProductListResponseBuilder
     /**
      * @param Product[] $products
      * @param ProductPaginationRequest $paginationRequest
-     * @param int $productsPerPageNumber
+     * @param int $productsPerPage
      * @param string $routeName
      * @return array
      */
     public function buildResponse(
         array $products,
         ProductPaginationRequest $paginationRequest,
-        int $productsPerPageNumber,
+        int $productsPerPage,
         string $routeName
     ): array {
         return [
-            'products' => $this->buildProducts($products, $productsPerPageNumber),
-            '_links' => $this->buildLinks($products, $paginationRequest, $productsPerPageNumber, $routeName)
+            'products' => $this->buildProducts($products, $productsPerPage),
+            '_links' => $this->buildLinks($products, $paginationRequest, $productsPerPage, $routeName)
         ];
     }
 
     /**
      * @param Product[] $products
-     * @param int $productsPerPageNumber
+     * @param int $productsPerPage
      * @return array
      */
-    private function buildProducts(array $products, int $productsPerPageNumber): array
+    private function buildProducts(array $products, int $productsPerPage): array
     {
         $serializedProducts = [];
         foreach ($products as $productNumber => $product) {
-            if ($productNumber >= $productsPerPageNumber) {
+            if ($productNumber >= $productsPerPage) {
                 break;
             }
             $serializedProducts[$productNumber] = $product->jsonSerialize();
@@ -59,7 +58,7 @@ class PaginatedProductListResponseBuilder
     private function buildLinks(
         array $products,
         ProductPaginationRequest $paginationRequest,
-        int $productsPerPageNumber,
+        int $productsPerPage,
         string $routeName
     ): array {
         $currentPage = $paginationRequest->getPageNumber();
@@ -72,7 +71,7 @@ class PaginatedProductListResponseBuilder
             $links['previous'] = $this->buildLink($routeName, $currentPage - 1);
         }
 
-        if (\count($products) > $productsPerPageNumber) {
+        if (\count($products) > $productsPerPage) {
             $links['next'] = $this->buildLink($routeName, $currentPage + 1);
         }
 

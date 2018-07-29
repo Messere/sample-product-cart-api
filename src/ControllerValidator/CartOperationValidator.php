@@ -21,8 +21,14 @@ class CartOperationValidator
         $this->validateUuid($productId, 'Missing or invalid productId');
     }
 
-    private function validateUuid(?string $uuid, string $message) {
-        if (null === $uuid || !Uuid::isValid($uuid)) {
+    /**
+     * @param $uuid
+     * @param string $message
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    private function validateUuid($uuid, string $message): void
+    {
+        if (null === $uuid || !\is_scalar($uuid) || !Uuid::isValid($uuid)) {
             throw new BadRequestHttpException($message);
         }
     }

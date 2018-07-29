@@ -5,8 +5,7 @@ namespace Messere\Cart\Controller;
 use Messere\Cart\ControllerValidator\UpdateProductRequestValidator;
 use Messere\Cart\Domain\Product\Command\UpdateProductCommand;
 use Messere\Cart\Domain\Product\Product\ProductException;
-use Messere\Cart\Domain\Product\Product\ProductValidationException;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactoryInterface;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +16,16 @@ class UpdateProductController
 {
     private $commandBus;
     private $validator;
+    private $uuidFactory;
 
     public function __construct(
         CommandBus $commandBus,
-        UpdateProductRequestValidator $validator
+        UpdateProductRequestValidator $validator,
+        UuidFactoryInterface $uuidFactory
     ) {
         $this->commandBus = $commandBus;
         $this->validator = $validator;
+        $this->uuidFactory = $uuidFactory;
     }
 
     /**
@@ -38,7 +40,7 @@ class UpdateProductController
 
         $price = (array)$request->get('price', []);
         $command = new UpdateProductCommand(
-            Uuid::fromString($request->get('productId')),
+            $this->uuidFactory->fromString($request->get('productId')),
             $request->get('name'),
             $price['amount'] ?? null,
             $price['divisor'] ?? null,

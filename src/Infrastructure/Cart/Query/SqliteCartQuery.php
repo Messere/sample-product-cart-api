@@ -6,21 +6,24 @@ use Messere\Cart\Domain\Cart\Query\ICartQuery;
 use Messere\Cart\Domain\CartProduct\Product\CartProduct;
 use Messere\Cart\Domain\CartProduct\Product\CartProductBuilder;
 use Messere\Cart\Domain\Price\PriceValidationException;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class SqliteCartQuery implements ICartQuery
 {
     private $pdo;
     private $cartProductBuilder;
+    private $uuidFactory;
 
     public function __construct(
         \PDO $pdo,
-        CartProductBuilder $cartProductBuilder
+        CartProductBuilder $cartProductBuilder,
+        UuidFactoryInterface $uuidFactory
     ) {
         $this->pdo = $pdo;
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->cartProductBuilder = $cartProductBuilder;
+        $this->uuidFactory = $uuidFactory;
     }
 
     /**
@@ -43,7 +46,7 @@ class SqliteCartQuery implements ICartQuery
         $products = [];
         while ($result = $statement->fetch(\PDO::FETCH_ASSOC)) {
             $products[] = $this->cartProductBuilder->build(
-                Uuid::fromString($result['id']),
+                $this->uuidFactory->fromString($result['id']),
                 $result['name'],
                 $result['price_amount'],
                 $result['price_divisor'],

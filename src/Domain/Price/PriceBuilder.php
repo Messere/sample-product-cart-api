@@ -19,6 +19,7 @@ class PriceBuilder
      * @param string $currencySymbol
      * @return Price
      * @throws PriceValidationException
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function buildPrice(int $priceAmount, int $priceDivisor, string $currencySymbol): Price
     {

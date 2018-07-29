@@ -7,20 +7,20 @@ use Ramsey\Uuid\UuidInterface;
 
 class Product implements \JsonSerializable
 {
-    private $id;
+    private $productId;
     private $name;
     private $price;
 
-    public function __construct(UuidInterface $id, string $name, Price $price)
+    public function __construct(UuidInterface $productId, string $name, Price $price)
     {
-        $this->id = $id;
+        $this->productId = $productId;
         $this->name = $name;
         $this->price = $price;
     }
 
-    public function getId(): UuidInterface
+    public function getProductId(): UuidInterface
     {
-        return $this->id;
+        return $this->productId;
     }
 
     public function getName(): string
@@ -35,18 +35,18 @@ class Product implements \JsonSerializable
 
     public function withPrice(Price $price): Product
     {
-        return new Product($this->id, $this->name, $price);
+        return new Product($this->productId, $this->name, $price);
     }
 
     public function withName(string $name): Product
     {
-        return new Product($this->id, $name, $this->price);
+        return new Product($this->productId, $name, $this->price);
     }
 
     public function jsonSerialize()
     {
         return [
-            'id' => $this->getId()->toString(),
+            'id' => $this->getProductId()->toString(),
             'name' => $this->getName(),
             'price' => $this->getPrice()->jsonSerialize(),
         ];

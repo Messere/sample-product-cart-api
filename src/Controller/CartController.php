@@ -4,7 +4,7 @@ namespace Messere\Cart\Controller;
 
 use Messere\Cart\Domain\Cart\Cart\Cart;
 use Messere\Cart\Domain\Cart\Query\ICartQuery;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController
 {
     private $cartQuery;
+    private $uuidFactory;
 
     public function __construct(
-        ICartQuery $cartQuery
+        ICartQuery $cartQuery,
+        UuidFactoryInterface $uuidFactory
     ) {
         $this->cartQuery = $cartQuery;
+        $this->uuidFactory = $uuidFactory;
     }
 
     /**
@@ -30,7 +33,7 @@ class CartController
         return new JsonResponse(
             new Cart(
                 $this->cartQuery->getProductsFromCart(
-                    Uuid::fromString($request->get('cartId'))
+                    $this->uuidFactory->fromString($request->get('cartId'))
                 )
             )
         );

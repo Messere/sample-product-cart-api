@@ -18,7 +18,7 @@ class ProductBuilder
     }
 
     /**
-     * @param UuidInterface $id
+     * @param UuidInterface $productId
      * @param string $name
      * @param int $priceAmount
      * @param int $priceDivisor
@@ -27,7 +27,7 @@ class ProductBuilder
      * @throws ProductValidationException
      */
     public function build(
-        UuidInterface $id,
+        UuidInterface $productId,
         string $name,
         int $priceAmount,
         int $priceDivisor,
@@ -40,7 +40,7 @@ class ProductBuilder
             throw new ProductException('Invalid price ' . $e->getMessage(), 0, $e);
         }
 
-        $product = new Product($id, $name, $price);
+        $product = new Product($productId, $name, $price);
 
         $this->productValidator->validate($product);
 
