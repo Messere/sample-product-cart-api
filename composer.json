@@ -62,31 +62,23 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@init-db"
         ],
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "tests": [
-            "php bin/phpunit"
-        ],
-        "phpcs": [
-            "phpcs --standard=PSR2 src/"
-        ],
-        "phpmd": [
-            "phpmd src text cleancode,codesize,controversial,design,naming,unusedcode"
-        ],
-        "fix": [
-            "phpcbf --standard=PSR2 src/"
-        ],
+        "tests": "php bin/phpunit",
+        "phpcs": "phpcs --standard=PSR2 src/",
+        "phpmd": "phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
+        "fix": "phpcbf --standard=PSR2 src/",
+        "init-db": "php -r \"copy('./doc/db-prototype.db', './var/data.db');\"",
         "build": [
             "@tests",
             "@phpcs",
             "@phpmd"
         ],
-        "run": [
-            "php bin/console server:run"
-        ]
+        "server": "php bin/console server:run"
     },
     "conflict": {
         "symfony/symfony": "*"

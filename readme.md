@@ -47,12 +47,14 @@ to play with more human friendly version.
 
 ## How to run
 
-Install dependencies, initialize database and
-run local web server:
 
 ```bash
+# install dependencies
 composer install
-composer run init-db
-composer run server
-```
 
+# make sure tests pass, code is clean 
+composer build 
+
+# start built in www server on port 8000
+composer server
+```
