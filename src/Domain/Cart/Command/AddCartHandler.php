@@ -6,6 +6,7 @@ class AddCartHandler
 {
     public function handle(/*AddCartCommand $command*/): void
     {
-        // noop, we don't need a cart in database, just let handler generate new UUID for user
+        // noop, we don't need a cart in database, any UUID will do
+        // and we will later store it with product id
     }
 }

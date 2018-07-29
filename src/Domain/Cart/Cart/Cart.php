@@ -68,7 +68,7 @@ class Cart implements \JsonSerializable
     {
         $price = $this->getTotalPrice();
         return null === $price ? null : sprintf(
-            '%.2f %s',
+            '%.' . log10($price->getDivisor()) . 'f %s',
             $price->getAmount() / $price->getDivisor(),
             $price->getCurrency()->getName()
         );

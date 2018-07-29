@@ -22,7 +22,7 @@ class AddProductToCartHandler
             $command->getCartId()
         );
 
-        if ($currentAmount === static::CART_CAPACITY_LIMIT) {
+        if ($currentAmount >= static::CART_CAPACITY_LIMIT) {
             throw new CartException('Cart capacity exceeded');
         }
 
