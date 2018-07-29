@@ -2,12 +2,18 @@
 
 namespace Messere\Cart\ControllerValidator;
 
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class CartQueryValidator
 {
+    private $validator;
+
+    public function __construct(UuidValidator $validator)
+    {
+        $this->validator = $validator;
+    }
+
     /**
      * @param Request $request
      * @throws BadRequestHttpException
@@ -16,8 +22,6 @@ class CartQueryValidator
     public function assertValidRequest(Request $request): void
     {
         $cartId = $request->get('cartId');
-        if (null === $cartId || !\is_scalar($cartId) || !Uuid::isValid($cartId)) {
-            throw new BadRequestHttpException('Invalid or missing cartId');
-        }
+        $this->validator->assertValidUuid($cartId, 'Invalid or missing cartId');
     }
 }

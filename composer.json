@@ -26,15 +26,15 @@
         "symfony/yaml": "^4.1"
     },
     "require-dev": {
+        "beberlei/assert": "^2.0",
         "behat/behat": "^3.4",
         "behat/symfony2-extension": "^2.1",
         "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "^7.2",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.3",
         "symfony/dotenv": "^4.1",
-        "symfony/test-pack": "^1.0",
-        "symfony/web-server-bundle": "^4.1",
-        "beberlei/assert": "^2.0"
+        "symfony/web-server-bundle": "^4.1"
     },
     "config": {
         "preferred-install": {
@@ -49,7 +49,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Messere\\Cart\\": "tests/unit"
+            "Messere\\Cart\\": "tests/"
         }
     },
     "replace": {

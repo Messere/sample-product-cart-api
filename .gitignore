@@ -10,11 +10,6 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
-###> symfony/phpunit-bridge ###
-.phpunit
+###> phpunit/phpunit ###
 /phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> behat/symfony2-extension ###
-behat.yml
-###< behat/symfony2-extension ###
+###< phpunit/phpunit ###

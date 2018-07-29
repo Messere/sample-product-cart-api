@@ -2,12 +2,18 @@
 
 namespace Messere\Cart\ControllerValidator;
 
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RemoveProductRequestValidator
 {
+    private $validator;
+
+    public function __construct(UuidValidator $validator)
+    {
+        $this->validator = $validator;
+    }
+
     /**
      * @param Request $request
      * @throws BadRequestHttpException
@@ -15,8 +21,7 @@ class RemoveProductRequestValidator
      */
     public function assertValidRequest(Request $request): void
     {
-        if (!Uuid::isValid($request->get('productId', ''))) {
-            throw new BadRequestHttpException('Invalid product id');
-        }
+        $productId = $request->get('productId');
+        $this->validator->assertValidUuid($productId, 'Invalid product id');
     }
 }

@@ -47,6 +47,9 @@
     "doctrine/inflector": {
         "version": "v1.3.0"
     },
+    "doctrine/instantiator": {
+        "version": "1.1.0"
+    },
     "doctrine/lexer": {
         "version": "v1.0.1"
     },
@@ -58,6 +61,9 @@
     },
     "esky/enum": {
         "version": "dev-master"
+    },
+    "myclabs/deep-copy": {
+        "version": "1.8.1"
     },
     "ocramius/package-versions": {
         "version": "1.3.0"
@@ -71,8 +77,50 @@
     "pdepend/pdepend": {
         "version": "2.5.2"
     },
+    "phar-io/manifest": {
+        "version": "1.0.3"
+    },
+    "phar-io/version": {
+        "version": "2.0.1"
+    },
+    "phpdocumentor/reflection-common": {
+        "version": "1.0.1"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "4.3.0"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "0.4.0"
+    },
     "phpmd/phpmd": {
         "version": "2.6.0"
+    },
+    "phpspec/prophecy": {
+        "version": "1.7.6"
+    },
+    "phpunit/php-code-coverage": {
+        "version": "6.0.7"
+    },
+    "phpunit/php-file-iterator": {
+        "version": "2.0.1"
+    },
+    "phpunit/php-text-template": {
+        "version": "1.2.1"
+    },
+    "phpunit/php-timer": {
+        "version": "2.0.0"
+    },
+    "phpunit/php-token-stream": {
+        "version": "3.0.0"
+    },
+    "phpunit/phpunit": {
+        "version": "4.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.7",
+            "ref": "c276fa48d4713de91eb410289b3b1834acb7e403"
+        }
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -92,6 +140,39 @@
     "roave/security-advisories": {
         "version": "dev-master"
     },
+    "sebastian/code-unit-reverse-lookup": {
+        "version": "1.0.1"
+    },
+    "sebastian/comparator": {
+        "version": "3.0.2"
+    },
+    "sebastian/diff": {
+        "version": "3.0.1"
+    },
+    "sebastian/environment": {
+        "version": "3.1.0"
+    },
+    "sebastian/exporter": {
+        "version": "3.1.0"
+    },
+    "sebastian/global-state": {
+        "version": "2.0.0"
+    },
+    "sebastian/object-enumerator": {
+        "version": "3.0.3"
+    },
+    "sebastian/object-reflector": {
+        "version": "1.1.1"
+    },
+    "sebastian/recursion-context": {
+        "version": "3.0.0"
+    },
+    "sebastian/resource-operations": {
+        "version": "1.0.0"
+    },
+    "sebastian/version": {
+        "version": "2.0.1"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -109,9 +190,6 @@
     },
     "squizlabs/php_codesniffer": {
         "version": "3.3.1"
-    },
-    "symfony/browser-kit": {
-        "version": "v4.1.2"
     },
     "symfony/cache": {
         "version": "v4.1.2"
@@ -131,16 +209,10 @@
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
     },
-    "symfony/css-selector": {
-        "version": "v4.1.2"
-    },
     "symfony/debug": {
         "version": "v4.1.2"
     },
     "symfony/dependency-injection": {
-        "version": "v4.1.2"
-    },
-    "symfony/dom-crawler": {
         "version": "v4.1.2"
     },
     "symfony/dotenv": {
@@ -182,15 +254,6 @@
     "symfony/lts": {
         "version": "4-dev"
     },
-    "symfony/phpunit-bridge": {
-        "version": "4.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.1",
-            "ref": "2955e26d3818b803d82b5de05d91805df5994d3a"
-        }
-    },
     "symfony/polyfill-mbstring": {
         "version": "v1.8.0"
     },
@@ -208,9 +271,6 @@
             "version": "4.0",
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.2"
     },
     "symfony/translation": {
         "version": "3.3",
@@ -232,6 +292,12 @@
     },
     "symfony/yaml": {
         "version": "v4.1.2"
+    },
+    "theseer/tokenizer": {
+        "version": "1.1.0"
+    },
+    "webmozart/assert": {
+        "version": "1.3.0"
     },
     "zendframework/zend-code": {
         "version": "3.3.0"
