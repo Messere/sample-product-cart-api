@@ -41,9 +41,7 @@ to reuse product repository.
 
 ## REST Endpoints Definitions
 
-See [swagger](doc/swagger.yaml).
-You can copy-paste contents into [editor.swagger.io](https://editor.swagger.io/)
-to play with more human friendly version.
+See [swagger](public/swagger.yaml). 
 
 ## How to run
 
@@ -57,3 +55,6 @@ composer build
 # start built in www server on port 8000
 composer server
 ```
+
+Now you can [play with API directly](http://127.0.0.1:8000/v1/product), or via built in
+[Swagger UI](http://127.0.0.1:8000/swagger/).

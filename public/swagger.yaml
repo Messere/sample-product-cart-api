@@ -5,10 +5,16 @@ info:
   title: "Cart"
 schemes:
 - "http"
-host: "127.0.0.1:8000"
+tags:
+- name: "Product"
+  description: "Endpoints related to products"
+- name: "Cart"
+  description: "Endpoints related to shopping cart"
 paths:
   /v1/product:
     post:
+      tags:
+      - Product
       summary: "Add a new product"
       consumes:
       - "application/json"
@@ -29,6 +35,8 @@ paths:
         400:
           description: "Invalid input"
     get:
+      tags:
+      - Product
       summary: "Get paginated list of products"
       produces:
       - "application/json"
@@ -39,6 +47,8 @@ paths:
             $ref: "#/definitions/ProductList"
   /v1/product/{id}:
     delete:
+      tags:
+      - Product
       summary: "Remove product"
       parameters:
       - in: "path"
@@ -49,6 +59,8 @@ paths:
         204:
           description: "Product was deleted"
     patch:
+      tags:
+      - Product
       summary: "Update product properties"
       consumes:
       - "application/json"
@@ -71,6 +83,8 @@ paths:
           description: "Product not found"
   /v1/cart:
     post:
+      tags:
+      - Cart
       summary: "Create new cart"
       produces:
       - "application/json"
@@ -81,6 +95,8 @@ paths:
             $ref: "#/definitions/CartId"
   /v1/cart/{cartId}:
     get:
+      tags:
+      - Cart
       summary: "Get contents of cart"
       parameters:
       - in: "path"
@@ -99,6 +115,8 @@ paths:
           description: "Cart not found"
   /v1/cart/{cartId}/product:
     post:
+      tags:
+      - Cart
       summary: "Insert product into cart"
       parameters:
       - in: "path"
@@ -121,6 +139,8 @@ paths:
           description: "Cart not found"
   /v1/cart/{cartId}/product/{productId}:
     delete:
+      tags:
+      - Cart
       summary: "Remove product from cart"
       parameters:
       - in: "path"
@@ -150,7 +170,7 @@ definitions:
       models product price as "amount/divisor in currency",
       e.g. 1286/100 PLN = 12,86 PLN
     properties:
-      amout:
+      amount:
         type: "integer"
       divisor:
         type: "integer"
