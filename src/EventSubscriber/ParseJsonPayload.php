@@ -23,9 +23,12 @@ class ParseJsonPayload implements EventSubscriberInterface
     public function injectJsonPayloadToRequest(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
+        /**
+         * @var string $content
+         */
         $content = $request->getContent();
 
-        if ('' === $content || false === strpos('application/json', $request->getContentType())) {
+        if ('' === $content || false === strpos('application/json', (string)$request->getContentType())) {
             return;
         }
 

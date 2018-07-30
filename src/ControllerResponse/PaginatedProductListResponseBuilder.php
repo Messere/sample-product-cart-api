@@ -10,10 +10,6 @@ class PaginatedProductListResponseBuilder
 {
     private $urlGenerator;
 
-    /**
-     * PaginatedProductListResponseBuilder constructor.
-     * @param $urlGenerator
-     */
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;

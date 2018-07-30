@@ -47,7 +47,6 @@ class RemoveProductFromCartController
         } catch (CartException $e) {
             throw new BadRequestHttpException(
                 'Cannot remove product from cart: ' . $e->getMessage(),
-                0,
                 $e
             );
         }

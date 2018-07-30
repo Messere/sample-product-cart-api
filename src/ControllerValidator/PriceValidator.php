@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class PriceValidator
 {
     /**
-     * @param $price
+     * @param mixed $price
      */
     public function assertValidRequest($price): void
     {

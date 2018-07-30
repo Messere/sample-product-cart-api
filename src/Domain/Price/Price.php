@@ -65,7 +65,7 @@ class Price implements \JsonSerializable
             return $this;
         }
 
-        $newAmount = $this->getAmount() * $newDivisor / $this->getDivisor();
+        $newAmount = $this->getAmount() * (int)($newDivisor / $this->getDivisor());
         return new Price($newAmount, $this->getCurrency(), $newDivisor);
     }
 

@@ -28,7 +28,7 @@ class PriceBuilder
         /** @noinspection PhpUnhandledExceptionInspection */
         $price = new Price(
             $priceAmount,
-            Currency::createFromConstantName($currencySymbol),
+            new Currency($currencySymbol),
             $priceDivisor
         );
 
